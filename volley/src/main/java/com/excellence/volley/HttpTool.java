@@ -6,9 +6,12 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.excellence.volley.util.BaseJsonParser;
 import com.excellence.volley.util.HttpCallBack;
 import com.excellence.volley.util.RequestParam;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -115,6 +118,68 @@ public class HttpTool
 					Gson gson = new Gson();
 					T t = gson.fromJson(response, type);
 					callBack.onSuccess(t);
+				}
+			}
+		}, new ErrorListener()
+		{
+			@Override
+			public void onErrorResponse(VolleyError error)
+			{
+				if (callBack == null)
+					return;
+				callBack.onFail(error.getMessage());
+			}
+		})
+		{
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError
+			{
+				if (param != null && param.getBodyParams() != null && param.getBodyParams().size() > 0)
+					return param.getBodyParams();
+				return super.getParams();
+			}
+
+			@Override
+			public Map<String, String> getHeaders() throws AuthFailureError
+			{
+				if (param != null && param.getHeaders() != null && param.getHeaders().size() > 0)
+					return param.getHeaders();
+				return super.getHeaders();
+			}
+		};
+		request.setTag(tag);
+		VolleyTool.addToRequestQueue(request);
+	}
+
+	public static <T> void get(String url, BaseJsonParser<T> parser, HttpCallBack<T> callBack)
+	{
+		get(null, url, null, parser, callBack);
+	}
+
+	public static <T> void get(Object tag, String url, RequestParam param, BaseJsonParser<T> parser, HttpCallBack<T> callBack)
+	{
+		request(GET, tag, url, param, parser, callBack);
+	}
+
+	public static <T> void request(int method, Object tag, String url, final RequestParam param, final BaseJsonParser<T> parser, final HttpCallBack<T> callBack)
+	{
+		VolleyTool.checkRequestQueue();
+		StringRequest request = new StringRequest(method, url, new Listener<String>()
+		{
+			@Override
+			public void onResponse(String response)
+			{
+				if (callBack == null)
+					return;
+
+				try
+				{
+					callBack.onSuccess(parser.parse(response));
+				}
+				catch (JSONException e)
+				{
+					e.printStackTrace();
+					callBack.onFail(e.getMessage());
 				}
 			}
 		}, new ErrorListener()

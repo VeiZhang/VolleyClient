@@ -10,6 +10,7 @@ import com.excellence.volley.util.HttpCallBack;
 import com.excellence.volley.HttpTool;
 import com.excellence.volley.VolleyTool;
 import com.excellence.volleyclient.Weather.DataBean.ForecastBean;
+import com.excellence.volleyclient.ParserSet.ForecastBeanParser;
 
 import java.util.List;
 
@@ -87,12 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 			break;
 
 		case R.id.json_array_request:
-			/**
-			 * 报错，因为输入类型与JSON解析类型不一致；
-			 *
-			 * 该栗子中输入的类型只想获取JSON的部分数据，会报错
-			 */
-			HttpTool.get(URL, new HttpCallBack<List<ForecastBean>>()
+			HttpTool.get(URL, new ForecastBeanParser(), new HttpCallBack<List<ForecastBean>>()
 			{
 				@Override
 				public void onSuccess(List<ForecastBean> data)
