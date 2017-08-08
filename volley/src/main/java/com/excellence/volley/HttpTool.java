@@ -6,6 +6,8 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.excellence.volley.util.HttpCallBack;
+import com.excellence.volley.util.RequestParam;
 import com.google.gson.Gson;
 
 import java.lang.reflect.ParameterizedType;
@@ -94,7 +96,7 @@ public class HttpTool
 	 */
 	public static <T> void request(int method, Object tag, String url, final RequestParam param, final HttpCallBack<T> callBack)
 	{
-		VolleyUtil.checkRequestQueue();
+		VolleyTool.checkRequestQueue();
 		StringRequest request = new StringRequest(method, url, new Listener<String>()
 		{
 			@Override
@@ -143,7 +145,7 @@ public class HttpTool
 			}
 		};
 		request.setTag(tag);
-		VolleyUtil.addToRequestQueue(request);
+		VolleyTool.addToRequestQueue(request);
 	}
 
 	/**
@@ -153,7 +155,7 @@ public class HttpTool
 	 */
 	public static void cancel(Object tag)
 	{
-		VolleyUtil.cancel(tag);
+		VolleyTool.cancel(tag);
 	}
 
 	/**
@@ -163,7 +165,7 @@ public class HttpTool
 	 */
 	public static void cancelAll(RequestQueue.RequestFilter requestFilter)
 	{
-		VolleyUtil.cancelAll(requestFilter);
+		VolleyTool.cancelAll(requestFilter);
 	}
 
 	/**
@@ -171,7 +173,7 @@ public class HttpTool
 	 */
 	public static void cancelAll()
 	{
-		VolleyUtil.cancelAll();
+		VolleyTool.cancelAll();
 	}
 
 	/**

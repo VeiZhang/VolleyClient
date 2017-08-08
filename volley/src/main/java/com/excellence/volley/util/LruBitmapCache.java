@@ -1,4 +1,4 @@
-package com.excellence.volley;
+package com.excellence.volley.util;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;

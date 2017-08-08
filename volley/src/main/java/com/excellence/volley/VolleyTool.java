@@ -11,6 +11,7 @@ import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
+import com.excellence.volley.util.LruBitmapCache;
 
 /**
  * <pre>
@@ -21,7 +22,7 @@ import com.android.volley.toolbox.ImageLoader;
  * </pre>
  */
 
-public class VolleyUtil
+public class VolleyTool
 {
 	private static final int MAX_CACHE_SIZE = 20 * 1024 * 1024;
 

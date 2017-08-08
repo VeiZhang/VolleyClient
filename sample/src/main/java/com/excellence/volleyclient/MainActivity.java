@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.excellence.volley.HttpCallBack;
+import com.excellence.volley.util.HttpCallBack;
 import com.excellence.volley.HttpTool;
-import com.excellence.volley.VolleyUtil;
+import com.excellence.volley.VolleyTool;
 import com.excellence.volleyclient.Weather.DataBean.ForecastBean;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		VolleyUtil.init(this);
+		VolleyTool.init(this);
 
 		mStrRequestBtn = (Button) findViewById(R.id.str_request);
 		mJSONObjRequestBtn = (Button) findViewById(R.id.json_obj_request);
