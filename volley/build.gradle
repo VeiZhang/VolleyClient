@@ -69,10 +69,9 @@ tasks.withType(Javadoc) {
 /**发布到我的Bintray仓库**/
 publish {
     userOrg = 'veizhang'
-    repoName = 'android-utils'
     groupId = 'com.excellence'
     artifactId = 'volley'
     publishVersion = '1.0.0'
-    desc = 'Volley辅助工具'
+    desc = 'Volley封装'
     website = 'https://github.com/VeiZhang/VolleyClient'
 }
